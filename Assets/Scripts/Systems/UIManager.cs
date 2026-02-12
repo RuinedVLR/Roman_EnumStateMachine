@@ -9,11 +9,12 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject optionsMenuPanel;
     [SerializeField] private GameObject gameOverPanel;
 
-    StateManager stateManager = ServiceHub.Instance.StateManager;
+    ServiceHub serviceHub;
 
     private void Start()
     {
         ShowMainMenu();
+        serviceHub = ServiceHub.Instance;
     }
 
     public void ShowMainMenu()
@@ -59,44 +60,44 @@ public class UIManager : MonoBehaviour
 
     public void StartGame()
     {
-        stateManager.SetState(GameState.Gameplay);
+        serviceHub.StateManager.SetState(GameState.Gameplay);
     }
 
     public void ReturnToMainMenu()
     {
-        stateManager.SetState(GameState.MainMenu);
+        serviceHub.StateManager.SetState(GameState.MainMenu);
     }
 
     public void ResumeGame()
     {
-        stateManager.SetState(GameState.Gameplay);
+        serviceHub.StateManager.SetState(GameState.Gameplay);
     }
 
     public void OpenOptions()
     {
-        stateManager.SetState(GameState.Options);
+        serviceHub.StateManager.SetState(GameState.Options);
     }
 
     public void CloseOptions()
     {
-        if (stateManager.previousState == GameState.Paused)
+        if (serviceHub.StateManager.previousState == GameState.Paused)
         {
-            stateManager.SetState(GameState.Paused);
+            serviceHub.StateManager.SetState(GameState.Paused);
         }
         else
         {
-            stateManager.SetState(GameState.MainMenu);
+            serviceHub.StateManager.SetState(GameState.MainMenu);
         }
     }
 
     public void Restart()
     {
-        stateManager.SetState(GameState.Gameplay);
+        serviceHub.StateManager.SetState(GameState.Gameplay);
     }
 
     public void GameOver()
     {
-        stateManager.SetState(GameState.GameOver);
+        serviceHub.StateManager.SetState(GameState.GameOver);
     }
 
     public void QuitGame()
@@ -106,13 +107,13 @@ public class UIManager : MonoBehaviour
 
     public void TogglePause()
     {
-        if (stateManager.currentState == GameState.Gameplay)
+        if (serviceHub.StateManager.currentState == GameState.Gameplay)
         {
-            stateManager.SetState(GameState.Paused);
+            serviceHub.StateManager.SetState(GameState.Paused);
         }
-        else if (stateManager.currentState == GameState.Paused)
+        else if (serviceHub.StateManager.currentState == GameState.Paused)
         {
-            stateManager.SetState(GameState.Gameplay);
+            serviceHub.StateManager.SetState(GameState.Gameplay);
         }
     }
 }
